@@ -11,3 +11,6 @@
 !/log/.keep
 !/tmp/.keep
 /public/assets
+
+# Mac Finder files
+.DS_Store
