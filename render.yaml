@@ -4,7 +4,7 @@ services:
     runtime: ruby
     plan: free
     region: singapore
-    buildCommand: bundle install && bin/rails assets:precompile
+    buildCommand: gem update --system 3.4.22 && bundle install && bin/rails assets:precompile
     startCommand: bundle exec puma -C config/puma.rb
     envVars:
       - key: RAILS_ENV
