@@ -1,7 +1,7 @@
-%h1 ✍️ Multi-Step Content Generator
+%h1 Multi-Step Content Generator
 %p
   Type a short idea. The AI turns it into finished content in 6 steps:
-  Understand → Outline → Draft → Review → Improve → Final.
+    Understand → Outline → Draft → Review → Improve → Final.
 
 = form_with url: generate_path, id: "idea-form" do |form|
   = form.label :idea, "Your idea"
@@ -11,7 +11,7 @@
     Add any facts you know (dates, features, links).
     The AI does not invent facts, it writes [placeholders] instead.
   = form.submit "Generate", id: "generate-button"
-  %p#waiting.waiting{ hidden: true } Running the 6 steps... this takes 1–2 minutes. Please wait.
+  %p#waiting.waiting{ hidden: true } Running the 6 steps... this takes 1-2 minutes. Please wait.
 
 - if @error
   %p.error= @error

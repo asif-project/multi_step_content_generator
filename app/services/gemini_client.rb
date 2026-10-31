@@ -1,7 +1,5 @@
-# GeminiClient - the one place in the app that talks to the AI (Google Gemini).
-#
-# Google has no official Ruby library for Gemini, so we call its web API
-# directly with Net::HTTP (built into Ruby, no gem needed).
+# Sends prompts to Google Gemini.
+# There is no official Ruby gem for Gemini, so this uses Net::HTTP.
 
 require "net/http"
 require "json"

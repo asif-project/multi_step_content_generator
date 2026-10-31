@@ -1,13 +1,8 @@
-# ContentPipeline - turns a short idea into finished content in 6 steps.
-#
-#   idea -> 1 Understand -> 2 Outline -> 3 Draft -> 4 Review -> 5 Improve -> 6 Final
-#
-# Each step is a separate AI call with its own prompt (see app/prompts).
-# The original idea and the brief are sent to every step after step 1.
+# Turns a short idea into finished content in 6 steps.
+# Each step is a separate call to Gemini with its own prompt from app/prompts.
 
 class ContentPipeline
-  # ---------- The shapes of the JSON answers ----------
-
+  # JSON shapes for the steps that answer in JSON
   TEXT = { type: "string" }
   LIST_OF_TEXT = { type: "array", items: TEXT }
 
@@ -65,8 +60,6 @@ class ContentPipeline
     raise "The AI's answer is missing: #{missing.join(', ')}" if missing.any?
     data
   end
-
-  # ---------- The 6 steps ----------
 
   # Step 1: idea -> brief
   def self.understand(idea)
@@ -135,57 +128,5 @@ class ContentPipeline
 
     { idea: idea, brief: brief, outline: outline, draft: draft,
       review: review, improved: improved, final: final }
-  end
-
-  # Save the output of every step in one Markdown file.
-  def self.save_results(results, file_path)
-    text = <<~MARKDOWN
-      # Idea
-
-      #{results[:idea]}
-
-      ---
-
-      # Step 1: Brief
-
-      ```json
-      #{JSON.pretty_generate(results[:brief])}
-      ```
-
-      ---
-
-      # Step 2: Outline
-
-      ```json
-      #{JSON.pretty_generate(results[:outline])}
-      ```
-
-      ---
-
-      # Step 3: Draft
-
-      #{results[:draft]}
-
-      ---
-
-      # Step 4: Review
-
-      ```json
-      #{JSON.pretty_generate(results[:review])}
-      ```
-
-      ---
-
-      # Step 5: Improved draft
-
-      #{results[:improved]}
-
-      ---
-
-      # Step 6: Final
-
-      #{results[:final]}
-    MARKDOWN
-    File.write(file_path, text)
   end
 end
