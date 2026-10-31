@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: multi-step-content-generator
+    runtime: ruby
+    plan: free
+    region: singapore
+    buildCommand: bundle install && bin/rails assets:precompile
+    startCommand: bundle exec puma -C config/puma.rb
+    envVars:
+      - key: RAILS_ENV
+        value: production
+      - key: BUNDLE_WITHOUT
+        value: development:test
+      - key: SECRET_KEY_BASE
+        generateValue: true
+      - key: GEMINI_API_KEY
+        sync: false
