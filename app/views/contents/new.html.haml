@@ -1,0 +1,45 @@
+%h1 ✍️ Multi-Step Content Generator
+%p
+  Type a short idea. The AI turns it into finished content in 6 steps:
+  Understand → Outline → Draft → Review → Improve → Final.
+
+= form_with url: generate_path, id: "idea-form" do |form|
+  = form.label :idea, "Your idea"
+  = form.text_area :idea, value: @idea, rows: 4,
+    placeholder: "We launched a new employee attendance feature."
+  %p.hint
+    Add any facts you know (dates, features, links).
+    The AI does not invent facts, it writes [placeholders] instead.
+  = form.submit "Generate", id: "generate-button"
+  %p#waiting.waiting{ hidden: true } Running the 6 steps... this takes 1–2 minutes. Please wait.
+
+- if @error
+  %p.error= @error
+
+- if @results
+  %h2 Final content
+  .final= markdown(@results[:final])
+
+  %h2 Output of every step
+  %details
+    %summary Step 1: Brief
+    %pre= JSON.pretty_generate(@results[:brief])
+  %details
+    %summary Step 2: Outline
+    %pre= JSON.pretty_generate(@results[:outline])
+  %details
+    %summary Step 3: Draft
+    = markdown(@results[:draft])
+  %details
+    %summary Step 4: Review (score #{@results[:review]["score"]}/10)
+    %pre= JSON.pretty_generate(@results[:review])
+  %details
+    %summary Step 5: Improved draft
+    = markdown(@results[:improved])
+
+:javascript
+  // Show a "please wait" message while the 6 steps run.
+  document.getElementById("idea-form").addEventListener("submit", function () {
+    document.getElementById("generate-button").disabled = true;
+    document.getElementById("waiting").hidden = false;
+  });
