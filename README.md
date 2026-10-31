@@ -6,6 +6,8 @@ Example idea: "We launched a new employee attendance feature."
 
 Live app: https://multi-step-content-generator.onrender.com (the first visit can take about a minute, because the free server sleeps when nobody uses it)
 
+Demo video: https://drive.google.com/file/d/1aJ5pmSSWYeyiUdmxVEViMzOSNStLvoDS/view?usp=sharing
+
 This is the Rails version of my Python project. The prompts and the steps are the same.
 
 ## Screenshots
